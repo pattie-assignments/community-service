@@ -50,3 +50,21 @@ jwt:
   secret: 3W8i2bTUFAf+rQtb6SV01OHnNEpqlntH/wfO770lw/gm3n2onNxHNNtbik6mNux7aNlMD0jsZHzdE2mYZe8vlA==
   access-token-exp-seconds: 300
   refresh-token-exp-seconds: 12096000
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: never # 상태만 공개
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
+        liveness:
+          include: livenessState # 외부 시스템 장애가 전체로 이어지지 않게
